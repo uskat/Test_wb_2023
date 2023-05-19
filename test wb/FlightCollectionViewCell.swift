@@ -9,35 +9,27 @@ import UIKit
 
 class FlightCollectionViewCell: UICollectionViewCell {
 
-    private var flightView: UIView = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.backgroundColor = .white
-        $0.layer.cornerRadius = 8
-        $0.isUserInteractionEnabled = true
-        return $0
-    }(UIView())
+    private var flightView: UIView = { $0 } (UIView(backgroundColor: .white, cornerRadius: 8, isInteractive: true))
     
-    var startCity: CustomLabel = { $0 } (CustomLabel(textAligment: .center, textColor: .black,
-                                        fontSize: 16, fontWeight: .regular))
+    private var startCity: UILabel = { $0 } (UILabel(textAligment: .center, textColor: .black, fontSize: 16,
+                                                     fontWeight: .regular))
+    private var endCity: UILabel = { $0 }   (UILabel(textAligment: .center, textColor: .black, fontSize: 16,
+                                                     fontWeight: .regular))
     
-    var endCity: CustomLabel = { $0 }   (CustomLabel(textAligment: .center, textColor: .black,
-                                        fontSize: 16, fontWeight: .regular))
+    private var startDate: UILabel = { $0 } (UILabel(textAligment: .center, textColor: .systemGray, fontSize: 16,
+                                                     fontWeight: .regular))
+    private var endDate: UILabel = { $0 }   (UILabel(textAligment: .center, textColor: .systemGray, fontSize: 16,
+                                                     fontWeight: .regular))
     
-    var startDate: CustomLabel = { $0 } (CustomLabel(textAligment: .center, textColor: .systemGray,
-                                        fontSize: 16, fontWeight: .regular))
+    private var price: UILabel = { $0 }     (UILabel(textAligment: .center, textColor: .systemBlue, fontSize: 18,
+                                                     fontWeight: .bold))
     
-    var endDate: CustomLabel = { $0 }   (CustomLabel(textAligment: .center, textColor: .systemGray,
-                                        fontSize: 16, fontWeight: .regular))
-    
-    var price: CustomLabel = { $0 }     (CustomLabel(textAligment: .center, textColor: .systemBlue,
-                                        fontSize: 18, fontWeight: .bold))
-    
-    var likeButton: UIImageView = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.image = UIImage(systemName: "hand.thumbsup")
-        $0.tintColor = .lightGray
-        return $0
-    }(UIImageView())
+    private var likeButton: UIImageView = {
+                                            $0.translatesAutoresizingMaskIntoConstraints = false
+                                            $0.image = UIImage(systemName: "hand.thumbsup")
+                                            $0.tintColor = .lightGray
+                                            return $0
+                                            }(UIImageView())
     
     override init(frame: CGRect) {
         super.init(frame: frame)

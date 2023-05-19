@@ -14,79 +14,48 @@ class DetailsViewController: UIViewController {
     var flight: Flight?
     var like: Bool?
 
-    private var flightView: UIView = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.backgroundColor = .white
-        $0.layer.cornerRadius = 8
-        $0.isUserInteractionEnabled = true
-        return $0
-    }(UIView())
+    private var flightView: UIView = { $0 } (UIView(backgroundColor: .white, cornerRadius: 8, isInteractive: true))
     
-    private var stackViewMain: UIStackView = {
-        $0.axis = .vertical
-        $0.spacing = Size.indentInCell
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        return $0
-    }(UIStackView())
+    private var stackMain: UIStackView = { $0 }     (UIStackView(distrubution: .fillEqually, axis: .vertical,
+                                                                 spacing: Size.indentInCell))
+    private var stackCities: UIStackView = { $0 }   (UIStackView(distrubution: .fillEqually, axis: .horizontal,
+                                                                 spacing: Size.indentInCell))
+    private var stackStartDate: UIStackView = { $0 }(UIStackView(distrubution: .fillEqually, axis: .horizontal,
+                                                                 spacing: Size.indentInCell))
+    private var stackEndDate: UIStackView = { $0 }  (UIStackView(distrubution: .fillEqually, axis: .horizontal,
+                                                                 spacing: Size.indentInCell))
     
-    private var stackViewCities: UIStackView = {
-        $0.axis = .horizontal
-        $0.spacing = Size.indentInCell
-        $0.distribution = .fillEqually
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        return $0
-    }(UIStackView())
+    private var startLabel: UILabel = { $0 }(UILabel(textAligment: .right, textColor: .systemGray, fontSize: 18,
+                                                    fontWeight: .regular, text: "Дата вылета"))
+    private var endLabel: UILabel = { $0 }  (UILabel(textAligment: .right, textColor: .systemGray, fontSize: 18,
+                                                    fontWeight: .regular, text: "Дата возвращения"))
     
-    private var stackViewStartDates: UIStackView = {
-        $0.axis = .horizontal
-        $0.spacing = Size.indentInCell
-        $0.distribution = .fillEqually
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        return $0
-    }(UIStackView())
+    private var startCity: UILabel = { $0 } (UILabel(textAligment: .right, textColor: .black, fontSize: 20,
+                                                    fontWeight: .regular))
+    private var endCity: UILabel = { $0 }   (UILabel(textAligment: .left, textColor: .black, fontSize: 20,
+                                                    fontWeight: .regular))
     
-    private var stackViewEndDates: UIStackView = {
-        $0.axis = .horizontal
-        $0.spacing = Size.indentInCell
-        $0.distribution = .fillEqually
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        return $0
-    }(UIStackView())
+    private var startDate: UILabel = { $0 } (UILabel(textAligment: .left, textColor: .systemGray, fontSize: 18,
+                                                    fontWeight: .regular))
+    private var endDate: UILabel = { $0 }   (UILabel(textAligment: .left, textColor: .systemGray, fontSize: 18,
+                                                    fontWeight: .regular))
     
-    private var startLabel: CustomLabel = { $0 }(CustomLabel(textAligment: .right, textColor: .systemGray,
-                                                fontSize: 18, fontWeight: .regular, text: "Дата вылета"))
-    
-    private var endLabel: CustomLabel = { $0 }  (CustomLabel(textAligment: .right, textColor: .systemGray,
-                                                fontSize: 18, fontWeight: .regular, text: "Дата возвращения"))
-    
-    private var startCity: CustomLabel = { $0 } (CustomLabel(textAligment: .right, textColor: .black,
-                                                fontSize: 20, fontWeight: .regular))
-    
-    private var endCity: CustomLabel = { $0 }   (CustomLabel(textAligment: .left, textColor: .black,
-                                                fontSize: 20, fontWeight: .regular))
-    
-    private var startDate: CustomLabel = { $0 } (CustomLabel(textAligment: .left, textColor: .systemGray,
-                                                fontSize: 18, fontWeight: .regular))
-    
-    private var endDate: CustomLabel = { $0 }   (CustomLabel(textAligment: .left, textColor: .systemGray,
-                                                fontSize: 18, fontWeight: .regular))
-    
-    private var price: CustomLabel = { $0 }     (CustomLabel(textAligment: .center, textColor: .systemBlue,
-                                                fontSize: 26, fontWeight: .bold))
+    private var price: UILabel = { $0 }     (UILabel(textAligment: .center, textColor: .systemBlue, fontSize: 26,
+                                                    fontWeight: .bold))
     
     private var likeButton: UIButton = {
-        $0.setTitle("TAP TO LIKE ", for: .normal)
-        $0.setTitleColor(.black, for: .normal)
-        $0.layer.cornerRadius = 8
-        $0.layer.borderColor = UIColor.systemBlue.cgColor
-        $0.layer.borderWidth = 2
-        $0.setImage(UIImage(systemName: "hand.thumbsup"), for: .normal)
-        $0.tintColor = .lightGray
-        $0.addTarget(nil, action: #selector(tapLike), for: .touchUpInside)
-        $0.semanticContentAttribute = .forceRightToLeft
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        return $0
-    }(UIButton())
+                                            $0.setTitle("TAP TO LIKE ", for: .normal)
+                                            $0.setTitleColor(.black, for: .normal)
+                                            $0.layer.cornerRadius = 8
+                                            $0.layer.borderColor = UIColor.systemBlue.cgColor
+                                            $0.layer.borderWidth = 2
+                                            $0.setImage(UIImage(systemName: "hand.thumbsup"), for: .normal)
+                                            $0.tintColor = .lightGray
+                                            $0.addTarget(nil, action: #selector(tapLike), for: .touchUpInside)
+                                            $0.semanticContentAttribute = .forceRightToLeft
+                                            $0.translatesAutoresizingMaskIntoConstraints = false
+                                            return $0
+                                            }(UIButton())
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -123,11 +92,11 @@ class DetailsViewController: UIViewController {
     
     func showItems() {
         view.addSubview(flightView)
-        [stackViewMain, price, likeButton].forEach { flightView.addSubview($0) }
-        [stackViewCities, stackViewStartDates, stackViewEndDates].forEach { stackViewMain.addArrangedSubview($0) }
-        [startCity, endCity].forEach { stackViewCities.addArrangedSubview($0) }
-        [startLabel, startDate].forEach { stackViewStartDates.addArrangedSubview($0) }
-        [endLabel, endDate].forEach { stackViewEndDates.addArrangedSubview($0) }
+        [stackMain, price, likeButton].forEach { flightView.addSubview($0) }
+        [stackCities, stackStartDate, stackEndDate].forEach { stackMain.addArrangedSubview($0) }
+        [startCity, endCity].forEach { stackCities.addArrangedSubview($0) }
+        [startLabel, startDate].forEach { stackStartDate.addArrangedSubview($0) }
+        [endLabel, endDate].forEach { stackEndDate.addArrangedSubview($0) }
         
         NSLayoutConstraint.activate([
             flightView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Size.indentInCollection),
@@ -135,9 +104,9 @@ class DetailsViewController: UIViewController {
             flightView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             flightView.heightAnchor.constraint(equalToConstant: Size.heightOfDetailTile),
             
-            stackViewMain.topAnchor.constraint(equalTo: flightView.topAnchor, constant: Size.indentInCell),
-            stackViewMain.centerXAnchor.constraint(equalTo: flightView.centerXAnchor),
-            stackViewCities.centerXAnchor.constraint(equalTo: stackViewMain.centerXAnchor),
+            stackMain.topAnchor.constraint(equalTo: flightView.topAnchor, constant: Size.indentInCell),
+            stackMain.centerXAnchor.constraint(equalTo: flightView.centerXAnchor),
+            stackCities.centerXAnchor.constraint(equalTo: stackMain.centerXAnchor),
 
             startCity.heightAnchor.constraint(equalToConstant: 20),
             endCity.heightAnchor.constraint(equalToConstant: 20),
