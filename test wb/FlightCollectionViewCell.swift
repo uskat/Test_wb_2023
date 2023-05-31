@@ -9,27 +9,60 @@ import UIKit
 
 class FlightCollectionViewCell: UICollectionViewCell {
 
-    private var flightView: UIView = { $0 } (UIView(backgroundColor: .white, cornerRadius: 8, isInteractive: true))
+    private var flightView: UIView = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.backgroundColor = .white
+        $0.layer.cornerRadius = 8
+        $0.isUserInteractionEnabled = true
+        return $0
+    } (UIView())
     
-    private var startCity: UILabel = { $0 } (UILabel(textAligment: .center, textColor: .black, fontSize: 16,
-                                                     fontWeight: .regular))
-    private var endCity: UILabel = { $0 }   (UILabel(textAligment: .center, textColor: .black, fontSize: 16,
-                                                     fontWeight: .regular))
+    private var startCity: UILabel = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textAlignment = .center
+        $0.textColor = .black
+        $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        return $0
+    } (UILabel())
     
-    private var startDate: UILabel = { $0 } (UILabel(textAligment: .center, textColor: .systemGray, fontSize: 16,
-                                                     fontWeight: .regular))
-    private var endDate: UILabel = { $0 }   (UILabel(textAligment: .center, textColor: .systemGray, fontSize: 16,
-                                                     fontWeight: .regular))
+    private var endCity: UILabel = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textAlignment = .center
+        $0.textColor = .black
+        $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        return $0
+    } (UILabel())
     
-    private var price: UILabel = { $0 }     (UILabel(textAligment: .center, textColor: .systemBlue, fontSize: 18,
-                                                     fontWeight: .bold))
+    private var startDate: UILabel = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textAlignment = .center
+        $0.textColor = .systemGray
+        $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        return $0
+    } (UILabel())
+    
+    private var endDate: UILabel = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textAlignment = .center
+        $0.textColor = .systemGray
+        $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        return $0
+    } (UILabel())
+    
+    private var price: UILabel = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textAlignment = .center
+        $0.textColor = .systemBlue
+        $0.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        return $0
+    } (UILabel())
     
     private var likeButton: UIImageView = {
-                                            $0.translatesAutoresizingMaskIntoConstraints = false
-                                            $0.image = UIImage(systemName: "hand.thumbsup")
-                                            $0.tintColor = .lightGray
-                                            return $0
-                                            }(UIImageView())
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.image = UIImage(systemName: "hand.thumbsup")
+        $0.tintColor = .lightGray
+        return $0
+    } (UIImageView())
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -84,6 +117,7 @@ class FlightCollectionViewCell: UICollectionViewCell {
         let longDateFormatter = DateFormatter()
         shortDateFormatter.dateFormat = "dd MMM yyyy"
         longDateFormatter.dateFormat = "yyy-mm-dd HH:mm:ss Z zzz"
+        
         if let date = longDateFormatter.date(from: flight.startDate) {
             startDate.text = shortDateFormatter.string(from: date)
         }

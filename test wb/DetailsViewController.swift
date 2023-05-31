@@ -14,48 +14,112 @@ class DetailsViewController: UIViewController {
     var flight: Flight?
     var like: Bool?
 
-    private var flightView: UIView = { $0 } (UIView(backgroundColor: .white, cornerRadius: 8, isInteractive: true))
+    private var flightView: UIView = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.backgroundColor = .white
+        $0.layer.cornerRadius = 8
+        $0.isUserInteractionEnabled = true
+        return $0
+    } (UIView())
     
-    private var stackMain: UIStackView = { $0 }     (UIStackView(distrubution: .fillEqually, axis: .vertical,
-                                                                 spacing: Size.indentInCell))
-    private var stackCities: UIStackView = { $0 }   (UIStackView(distrubution: .fillEqually, axis: .horizontal,
-                                                                 spacing: Size.indentInCell))
-    private var stackStartDate: UIStackView = { $0 }(UIStackView(distrubution: .fillEqually, axis: .horizontal,
-                                                                 spacing: Size.indentInCell))
-    private var stackEndDate: UIStackView = { $0 }  (UIStackView(distrubution: .fillEqually, axis: .horizontal,
-                                                                 spacing: Size.indentInCell))
+    private var stackMain: UIStackView = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.distribution = .fillEqually
+        $0.axis = .vertical
+        $0.spacing = Size.indentInCell
+        return $0
+    } (UIStackView())
     
-    private var startLabel: UILabel = { $0 }(UILabel(textAligment: .right, textColor: .systemGray, fontSize: 18,
-                                                    fontWeight: .regular, text: "Дата вылета"))
-    private var endLabel: UILabel = { $0 }  (UILabel(textAligment: .right, textColor: .systemGray, fontSize: 18,
-                                                    fontWeight: .regular, text: "Дата возвращения"))
+    private var stackCities: UIStackView = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.distribution = .fillEqually
+        $0.axis = .horizontal
+        $0.spacing = Size.indentInCell
+        return $0
+    } (UIStackView())
     
-    private var startCity: UILabel = { $0 } (UILabel(textAligment: .right, textColor: .black, fontSize: 20,
-                                                    fontWeight: .regular))
-    private var endCity: UILabel = { $0 }   (UILabel(textAligment: .left, textColor: .black, fontSize: 20,
-                                                    fontWeight: .regular))
+    private var stackStartDate: UIStackView = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.distribution = .fillEqually
+        $0.axis = .horizontal
+        $0.spacing = Size.indentInCell
+        return $0
+    } (UIStackView())
     
-    private var startDate: UILabel = { $0 } (UILabel(textAligment: .left, textColor: .systemGray, fontSize: 18,
-                                                    fontWeight: .regular))
-    private var endDate: UILabel = { $0 }   (UILabel(textAligment: .left, textColor: .systemGray, fontSize: 18,
-                                                    fontWeight: .regular))
+    private var stackEndDate: UIStackView = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.distribution = .fillEqually
+        $0.axis = .horizontal
+        $0.spacing = Size.indentInCell
+        return $0
+    } (UIStackView())
     
-    private var price: UILabel = { $0 }     (UILabel(textAligment: .center, textColor: .systemBlue, fontSize: 26,
-                                                    fontWeight: .bold))
+    private var startLabel: UILabel = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textAlignment = .right
+        $0.textColor = .systemGray
+        $0.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        $0.text = "Дата вылета"
+        return $0
+    } (UILabel())
+    
+    private var endLabel: UILabel = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textAlignment = .right
+        $0.textColor = .systemGray
+        $0.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        $0.text = "Дата возвращения"
+        return $0
+    } (UILabel())
+    
+    private var startCity: UILabel = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textAlignment = .right
+        $0.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        return $0
+    } (UILabel())
+    
+    private var endCity: UILabel = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        return $0
+    } (UILabel())
+    
+    private var startDate: UILabel = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textColor = .systemGray
+        $0.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        return $0
+    } (UILabel())
+    
+    private var endDate: UILabel = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textColor = .systemGray
+        $0.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        return $0
+    } (UILabel())
+    
+    private var price: UILabel = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textAlignment = .center
+        $0.textColor = .systemBlue
+        $0.font = UIFont.systemFont(ofSize: 26, weight: .bold)
+        return $0
+    } (UILabel())
     
     private var likeButton: UIButton = {
-                                            $0.setTitle("TAP TO LIKE ", for: .normal)
-                                            $0.setTitleColor(.black, for: .normal)
-                                            $0.layer.cornerRadius = 8
-                                            $0.layer.borderColor = UIColor.systemBlue.cgColor
-                                            $0.layer.borderWidth = 2
-                                            $0.setImage(UIImage(systemName: "hand.thumbsup"), for: .normal)
-                                            $0.tintColor = .lightGray
-                                            $0.addTarget(nil, action: #selector(tapLike), for: .touchUpInside)
-                                            $0.semanticContentAttribute = .forceRightToLeft
-                                            $0.translatesAutoresizingMaskIntoConstraints = false
-                                            return $0
-                                            }(UIButton())
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.setTitle("TAP TO LIKE ", for: .normal)
+        $0.setTitleColor(.black, for: .normal)
+        $0.setImage(UIImage(systemName: "hand.thumbsup"), for: .normal)
+        $0.tintColor = .lightGray
+        $0.semanticContentAttribute = .forceRightToLeft
+        $0.layer.cornerRadius = 8
+        $0.layer.borderColor = UIColor.systemBlue.cgColor
+        $0.layer.borderWidth = 2
+        $0.addTarget(nil, action: #selector(tapLike), for: .touchUpInside)
+        return $0
+    }(UIButton())
 
     override func viewDidLoad() {
         super.viewDidLoad()

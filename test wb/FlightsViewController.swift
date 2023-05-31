@@ -11,10 +11,6 @@ protocol LikeStatusProtocol: AnyObject {
     func updateLikeStatus(with likeStatus: Bool, at indexPath: IndexPath)
 }
 
-protocol ReloadDataProtocol: AnyObject {
-    func reload()
-}
-
 class FlightsViewController: UIViewController {
     
     let networkManager: NetworkManager
@@ -28,7 +24,7 @@ class FlightsViewController: UIViewController {
         $0.delegate = self
         $0.register(FlightCollectionViewCell.self, forCellWithReuseIdentifier: FlightCollectionViewCell.identifier)
         return $0
-    }(UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()))
+    } (UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()))
 
     init(networkManager: NetworkManager) {
         self.networkManager = networkManager
@@ -52,8 +48,10 @@ class FlightsViewController: UIViewController {
         
         self.networkManager.fetchData(fromAddress: address) { data in
             switch data {
-            case .success(let flights): self.flights = flights
-            case .failure(let error): print(error.localizedDescription)
+            case .success(let flights):
+                self.flights = flights
+            case .failure(let error):
+                print(error.localizedDescription)
             }
             self.likes = Array(repeating: false, count: self.flights.count)
             self.collectionView.reloadData()
@@ -78,7 +76,9 @@ extension FlightsViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FlightCollectionViewCell.identifier, for: indexPath) as! FlightCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: FlightCollectionViewCell.identifier,
+            for: indexPath) as! FlightCollectionViewCell
         cell.setupCell(with: flights[indexPath.row], like: likes[indexPath.row])
         return cell
     }

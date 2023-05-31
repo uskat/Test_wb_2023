@@ -15,9 +15,12 @@ enum NetworkError: Error, CustomDebugStringConvertible {
     
     var debugDescription: String {
         switch self {
-        case .server(let description): return "ошибка сервера: \(description)"
-        case let .parse(description): return "ошибка парсинга: \(description)"
-        case .unknown: return "неизвестная ошибка"
+        case .server(let description):
+            return "ошибка сервера: \(description)"
+        case let .parse(description):
+            return "ошибка парсинга: \(description)"
+        case .unknown:
+            return "неизвестная ошибка"
         }
     }
 }
